@@ -1,4 +1,6 @@
 from random import choice
+from datetime import datetime as dt
+
 
 """This file should have our order classes in it."""
 
@@ -37,7 +39,11 @@ class AbstractMelonOrder(object):
 
     def get_base_price(self):
         """ Chooses a random base price between 5 and 9 (inclusive). """
+        now = dt.now()
         self.base_price = choice(range(5, 10))
+
+        if now.weekday() < 5 and now.hour in range(8,11):
+            self.base_price += 4
         return self.base_price
 
 
