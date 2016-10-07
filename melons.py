@@ -19,6 +19,8 @@ class AbstractMelonOrder(object):
     def get_total(self):
         """ Returns total price including tax. """
 
+        if self.species == "Christmas":
+            self.base_price *= 1.5
         total = (1 + self.tax) * self.qty * self.base_price
         return total
 
@@ -48,6 +50,15 @@ class InternationalMelonOrder(AbstractMelonOrder):
 
         super(InternationalMelonOrder, self).__init__(species, qty, "international", 0.17)
         self.country_code = country_code
+
+
+    def get_total(self):
+        """ Returns total price including tax. """
+
+        total = super(InternationalMelonOrder, self).get_total()
+        if self.qty < 10:
+            return total + 3
+        return total
 
 
     def get_country_code(self):
