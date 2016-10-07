@@ -31,6 +31,24 @@ class AbstractMelonOrder(object):
         self.shipped = True
 
 
+class GovernmentMelonOrder(AbstractMelonOrder):
+    """ No tax on government orders """
+
+
+    def __init__(self, species, qty):
+        self.passed_inspection = False
+        super(GovernmentMelonOrder, self).__init__(species, qty, "government", 0)
+        
+
+    def mark_inspection(self, passed):
+        """Set passed_inspection to true if passed is True."""
+
+        if passed:
+            self.passed_inspection = True
+        else:
+            self.passed_inspection = False
+
+
 class DomesticMelonOrder(AbstractMelonOrder):
     """A domestic (in the US) melon order."""
 
