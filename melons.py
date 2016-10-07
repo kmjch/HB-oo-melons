@@ -1,3 +1,5 @@
+from random import choice
+
 """This file should have our order classes in it."""
 
 
@@ -13,11 +15,13 @@ class AbstractMelonOrder(object):
         self.shipped = False
         self.order_type = order_type
         self.tax = tax
-        self.base_price = 5
+        self.base_price = None
 
 
     def get_total(self):
         """ Returns total price including tax. """
+
+        # self.base_price = self.get_base_price()
 
         if self.species == "Christmas":
             self.base_price *= 1.5
@@ -29,6 +33,12 @@ class AbstractMelonOrder(object):
         """Set shipped to true."""
 
         self.shipped = True
+
+
+    def get_base_price(self):
+        """ Chooses a random base price between 5 and 9 (inclusive). """
+        self.base_price = choice(range(5, 10))
+        return self.base_price
 
 
 class GovernmentMelonOrder(AbstractMelonOrder):
